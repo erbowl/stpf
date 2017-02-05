@@ -1,0 +1,19 @@
+
+<header class="header">
+  <% if user_signed_in? %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <a href="/users/<%= current_user.id %>">マイページ</a>
+    <a href="/posts/new">投稿する</a>
+  <% else %>
+    <%= link_to "ログイン", new_user_session_path, class: 'post' %>
+    <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
+  <% end %>
+</header>
+
+<% @posts.each do |post| %>
+<h2><%= post.title %></h2>
+<p><%=  simple_format(post.content) %></p>
+<p><%= post.created_at %></p>
+<% end %>
+
+<%= paginate(@posts) %>
