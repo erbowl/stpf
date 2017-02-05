@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :move_to_index, except: :index
 
   def index
-    @posts = Post.all.order('id DESC').page(params[:page]).per(5)
+    @posts = Post.includes(:user).order('id DESC').page(params[:page]).per(5)
   end
 
   def new
@@ -12,6 +12,10 @@ class PostsController < ApplicationController
   def create
     Post.create(title: post_params[:title], content: post_params[:content], user_id: current_user.id)
     #binding.pry
+  end
+
+  def show
+    @post = Post.find(params[:id])
   end
 
   private
