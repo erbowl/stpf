@@ -1,0 +1,12 @@
+%h2 投稿画面
+%div
+  = form_tag('/posts', method: :post) do
+    %h3 投稿する
+    %div
+      %label Title:
+      %input{:name => "title", :placeholder => "タイトル", :type => "text"}/
+    %div
+      %label Content:
+      %textarea{:cols => "30", :name => "content", :placeholder => "text", :rows => "10"}
+    %div
+      %input{:type => "submit", :value => "投稿"}/
