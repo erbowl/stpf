@@ -50,4 +50,12 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:nickname)
     end
+
+    def is_user_permitted
+      # 編集、削除などの権限があるか確認
+      unless (!user_signed_in? || @user.id != current_user.id)
+      # 非ログインユーザー、またはログインした別ユーザーの場合トップにリダイレクト
+        redirect_to root_path
+      end
+    end
 end
