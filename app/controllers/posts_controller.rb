@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 
   before_action :move_to_index, except: :index
-  before_action :set_post,only: [:edit, :update]
+  before_action :set_post,only: [:edit, :update,:destroy]
 
   def index
     @posts = Post.all.order('id DESC').page(params[:page]).per(5)
@@ -21,11 +21,24 @@ class PostsController < ApplicationController
   end
 
   def new
+    @post=current_user.posts.build
+  end
+
+  def destroy
+    @post.destroy
+    respond_to do |format|
+      format.html { redirect_to current_user, success: 'Post was successfully destroyed.' }
+    end
   end
 
   def create
-    Post.create(title: post_params[:title], content: post_params[:content], user_id: current_user.id)
-    #binding.pry
+    # Post.create(title: post_params[:title], content: post_params[:content], user_id: current_user.id)
+    @post = current_user.posts.build(post_params_new)
+    if @post.save
+      redirect_to users_path(current_user)
+    else
+      render :new
+    end
   end
 
   private
@@ -41,7 +54,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def post_params_new
     params.require(:post).permit(:title,:content)
   end

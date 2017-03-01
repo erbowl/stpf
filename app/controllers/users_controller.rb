@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  # 権限があるか認証
+  before_action :is_user_permitted, except:[:index,:show]
   # GET /users
   # GET /users.json
   def index
@@ -52,7 +53,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:nickname,:email,:image)
     end
 
-    def is_user_permitted
+    def is_user_permitted()
       # 編集、削除などの権限があるか確認
       unless (!user_signed_in? || @user.id != current_user.id)
       # 非ログインユーザー、またはログインした別ユーザーの場合トップにリダイレクト

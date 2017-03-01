@@ -1,12 +1,10 @@
 = bootstrap_form_for(@post) do |f|
   - if @post.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %h2= "#{pluralize(@post.errors.count, "error")} prohibited this user from being saved:"
       %ul
         - @post.errors.full_messages.each do |msg|
           %li= msg
-  = f.text_field :title
-  = f.text_area :content
-
-  .actions
-    = f.submit 'Save'
+  = f.text_field :title,required:true
+  = f.text_area :content,required:true
+  = f.submit '保存'
