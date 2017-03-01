@@ -11,6 +11,9 @@ gem 'haml-rails'
 gem 'bootstrap_form'
 gem 'bootstrap-sass'
 
+# 画像アップロード関連
+gem 'carrierwave'
+gem 'rmagick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
