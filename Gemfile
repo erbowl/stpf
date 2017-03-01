@@ -20,6 +20,9 @@ gem 'omniauth-twitter'
 # 環境変数を入力するためのもの
 gem 'dotenv-rails', groups: [:development, :test]
 
+# cookieがいっぱいになった(by twitter login)
+gem 'activerecord-session_store'
+
 # リッチなエディター機能
 gem 'ckeditor'
 
