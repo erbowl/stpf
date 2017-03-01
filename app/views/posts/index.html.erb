@@ -2,7 +2,9 @@
 <header class="header">
   <% if user_signed_in? %>
     <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+
     <a href="/users/<%= current_user.id %>">マイページ</a>
+
     <a href="/posts/new">投稿する</a>
   <% else %>
     <%= link_to "ログイン", new_user_session_path, class: 'post' %>
