@@ -2,7 +2,8 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Stpf
+    %title=page_title
+
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
@@ -29,7 +30,7 @@
       .row
         .col-----mitaina
           - flash.each do |type, msg|
-            - type="success" if type="notice"
+            - type="success" if type=="notice"
             %div{class: "alert alert-#{type}"}
               =msg
               %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}

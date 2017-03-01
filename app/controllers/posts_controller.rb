@@ -12,7 +12,7 @@ class PostsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @post.update(post_params_new)
+      if @post.update(post_params)
         format.html { redirect_to user_path(current_user), success: 'Posts was successfully updated.' }
       else
         format.html { render :edit }
@@ -27,25 +27,22 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to current_user, success: 'Post was successfully destroyed.' }
+      format.html { redirect_to current_user, success: '投稿は削除されました' }
     end
   end
 
   def create
     # Post.create(title: post_params[:title], content: post_params[:content], user_id: current_user.id)
-    @post = current_user.posts.build(post_params_new)
+    @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to users_path(current_user)
+      redirect_to user_path(current_user),success:"投稿が公開されました"
     else
+      flash.now[:danger]="空欄のまま保存することはできません"
       render :new
     end
   end
 
   private
-  def post_params
-    params.permit(:title,:content)
-  end
-
   def move_to_index
     redirect_to action: :index unless user_signed_in?
   end
@@ -54,7 +51,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def post_params_new
+  def post_params
     params.require(:post).permit(:title,:content)
   end
 

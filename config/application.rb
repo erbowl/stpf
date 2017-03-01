@@ -13,6 +13,6 @@ module Stpf
     # -- all .rb files in that directory are automatically loaded.
 
     config.time_zone = 'Tokyo'
-
+    config.i18n.default_locale = :ja
   end
 end
