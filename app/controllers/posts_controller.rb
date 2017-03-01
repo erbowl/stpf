@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params_new)
-        format.html { redirect_to current_user, success: 'Posts was successfully updated.' }
+        format.html { redirect_to user_path(current_user), success: 'Posts was successfully updated.' }
       else
         format.html { render :edit }
       end

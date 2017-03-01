@@ -55,8 +55,8 @@ class UsersController < ApplicationController
 
     def is_user_permitted()
       # 編集、削除などの権限があるか確認
-      unless (!user_signed_in? || @user.id != current_user.id)
-      # 非ログインユーザー、またはログインした別ユーザーの場合トップにリダイレクト
+      if !user_signed_in? || @user != current_user
+      # 非ログインユーザー、またはログインした別ユーザーの場合トップにリダイレク
         redirect_to root_path
       end
     end

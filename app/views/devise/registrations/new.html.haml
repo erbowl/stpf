@@ -1,16 +1,15 @@
-.container
-  .row
-    .col-lg-4.col-lg-offset-4
-      %h2 Sign up
-      = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-        = devise_error_messages!
-        = f.text_field :nickname, autofocus: true
-        = f.email_field :email, autofocus: true
-        - if @minimum_password_length
-          %em
-            (#{@minimum_password_length} characters minimum)
-        = f.password_field :password, autocomplete: "off"
-        = f.password_field :password_confirmation, autocomplete: "off"
-        = f.submit "Sign up"
+.row
+  .col-lg-4.col-lg-offset-4
+    %h2 Sign up
+    = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      = f.text_field :nickname, autofocus: true
+      = f.email_field :email, autofocus: true
+      - if @minimum_password_length
+        %em
+          (#{@minimum_password_length} characters minimum)
+      = f.password_field :password, autocomplete: "off"
+      = f.password_field :password_confirmation, autocomplete: "off"
+      = f.submit "Sign up"
 
-      = render "devise/shared/links"
+    = render "devise/shared/links"
