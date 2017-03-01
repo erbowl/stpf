@@ -1,15 +1,7 @@
-%h1 ユーザー一覧
-
-%table
-  %thead
-    %tr
-      %th nickname
-      %th email
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= user.nickname
-        %td= user.email
-        %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%h1 勉強垢図鑑のみんな
+- @users.each do |user|
+  =link_to(user) do
+    .user
+    -user_img(user)
+    %p= user.nickname
+    %p= user.email
