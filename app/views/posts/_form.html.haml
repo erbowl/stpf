@@ -6,5 +6,5 @@
         - @post.errors.full_messages.each do |msg|
           %li= msg
   = f.text_field :title,required:true
-  = f.text_area :content,required:true
+  = f.cktext_area :content,required:true
   = f.submit '保存'

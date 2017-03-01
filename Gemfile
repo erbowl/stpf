@@ -13,7 +13,11 @@ gem 'bootstrap-sass'
 
 # 画像アップロード関連
 gem 'carrierwave'
+gem 'mini_magick'
 
+
+# リッチなエディター機能
+gem 'ckeditor'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
