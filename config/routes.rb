@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   root 'posts#index'
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :posts
   resources :users
-  #get 'users/:id' => 'users#show'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
