@@ -15,6 +15,9 @@ gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'mini_magick'
 
+# twitterlogin用
+gem 'omniauth-twitter'
+
 
 # リッチなエディター機能
 gem 'ckeditor'

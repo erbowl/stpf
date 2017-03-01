@@ -10,7 +10,22 @@
     %nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
-        = link_to "",root_path,class:"navbar-brand"
+          =link_to "",root_path,class:"navbar-brand"
+        %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        .navbar-collapse.collapse.navbar-responsive-collapse.navbar-right
+          %ul.nav.navbar-nav
+            - if user_signed_in?
+              %li= link_to "ログアウト", destroy_user_session_path, method: :delete
+            - else
+              %li= link_to "ログイン", new_user_session_path
+            %li= link_to "Link2", "/path2"
+            %li= link_to "Link3", "/path3"
+            - if Rails.env == 'development'
+              %li= link_to "surveys", root_path
+
     .container
       .row
         .col-----mitaina
