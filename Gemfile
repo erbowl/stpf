@@ -17,7 +17,8 @@ gem 'mini_magick'
 
 # twitterlogin用
 gem 'omniauth-twitter'
-
+# 環境変数を入力するためのもの
+gem 'dotenv-rails', groups: [:development, :test]
 
 # リッチなエディター機能
 gem 'ckeditor'
