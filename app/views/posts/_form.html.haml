@@ -7,4 +7,5 @@
           %li= msg
   = f.text_field :title,required:true
   = f.cktext_area :content,required:true
+  = f.check_box :is_draft,label:"下書き（チェックすると自分にしか見えなくなります）"
   = f.submit '保存'

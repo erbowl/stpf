@@ -35,7 +35,9 @@ class PostsController < ApplicationController
     # Post.create(title: post_params[:title], content: post_params[:content], user_id: current_user.id)
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to user_path(current_user),success:"投稿が公開されました"
+      msg = "新しい投稿が公開されました"
+      msg = "新しい下書きが投稿されました（非公開）" if @post.is_draft
+      redirect_to user_path(current_user),success:msg
     else
       flash.now[:danger]="空欄のまま保存することはできません"
       render :new
@@ -52,7 +54,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title,:content)
+    params.require(:post).permit(:title,:content,:is_draft)
   end
 
 end

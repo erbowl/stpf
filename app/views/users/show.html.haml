@@ -3,15 +3,23 @@
 %p=@user.nickname
 %p=@user.email
 
-- if @user=current_user
-  = link_to 'Edit', edit_user_path(@user),class:"btn btn-primary"
-= link_to 'Back', users_path
+- if @user==current_user
+  = link_to '編集', edit_user_path(@user),class:"btn btn-primary"
 
 %h2 ブログ
-
-= link_to '新規作成',new_post_path
+- if @user==current_user
+  = link_to '新規作成',new_post_path
+- if @posts.empty?
+  %p="まだ#{@user.nickname}さんのブログはありません。ブログが始まるのが楽しみですね。"
 - @posts.each do |post|
-  %h3=post.title
-  %p=post.content.html_safe
-  = link_to "編集",edit_post_path(post)
-  = link_to "削除",post,method: :delete,data:{confirm:'本当に削除しますか？'}
+  - if post.is_draft && current_user==@user
+    %h3="（下書き）#{post.title}"
+  - elsif post.is_draft && current_user!=@user
+    -next
+  - else
+    %h3=post.title
+  %p=time_ago_in_words post.created_at
+  =post.content.html_safe
+  - if current_user==@user
+    = link_to "編集",edit_post_path(post)
+    = link_to "削除",post,method: :delete,data:{confirm:'本当に削除しますか？'}

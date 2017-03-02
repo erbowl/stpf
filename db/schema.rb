@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170301170928) do
+ActiveRecord::Schema.define(version: 20170302003751) do
+
+  create_table "cheers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "users_id"
+    t.integer  "recipient_id"
+    t.boolean  "is_valid"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["users_id"], name: "index_cheers_on_users_id", using: :btree
+  end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
@@ -30,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170301170928) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "user_id"
+    t.boolean  "is_draft"
   end
 
   create_table "sessions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -63,4 +73,5 @@ ActiveRecord::Schema.define(version: 20170301170928) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "cheers", "users", column: "users_id"
 end

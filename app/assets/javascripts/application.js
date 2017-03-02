@@ -19,34 +19,33 @@
 $(function(){
     var setFileInput = $('.form-group'),
     setFileImg = $('.j-img');
+    var selfFile = $(this),
+    selfInput = $(this).find('input[type=file]'),
+    prevElm = $("form").find(setFileImg),
+    orgPass = prevElm.attr('src');
+    console.log(selfInput);
 
-    setFileInput.each(function(){
-        var selfFile = $(this),
-        selfInput = $(this).find('input[type=file]'),
-        prevElm = $("form").find(setFileImg),
-        orgPass = prevElm.attr('src');
+    selfInput.change(function(){
+      console.log("チャンジ");
+        var file = $(this).prop('files')[0],
+        fileRdr = new FileReader();
 
-        selfInput.change(function(){
-            var file = $(this).prop('files')[0],
-            fileRdr = new FileReader();
-
-            if (!this.files.length){
+        if (!this.files.length){
+            prevElm.attr('src', orgPass);
+            console.log(prevElm+"これか");
+            return;
+        } else {
+            if (!file.type.match('image.*')){
                 prevElm.attr('src', orgPass);
-                console.log(prevElm+"これか");
+                console.log(prevElm);
                 return;
             } else {
-                if (!file.type.match('image.*')){
-                    prevElm.attr('src', orgPass);
-                    console.log(prevElm);
-                    return;
-                } else {
-                    fileRdr.onload = function() {
-                      console.log(prevElm);
-                        prevElm.attr('src', fileRdr.result);
-                    }
-                    fileRdr.readAsDataURL(file);
+                fileRdr.onload = function() {
+                  console.log(prevElm);
+                    prevElm.attr('src', fileRdr.result);
                 }
+                fileRdr.readAsDataURL(file);
             }
-        });
+        }
     });
 });

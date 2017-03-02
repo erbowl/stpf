@@ -7,7 +7,7 @@
           %li= msg
   = f.text_field :nickname
   = f.email_field :email
-  - image_path = @user.image || '/assets/noimage.png'
+  - image_path = @user.image.presence || '/noimage.png'
   %img.j-img{src:image_path}
   = f.file_field :image
 

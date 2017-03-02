@@ -1,7 +1,6 @@
 module ApplicationHelper
   def user_img(user)
-    image_path = '/noimage.png'
-    image_path = user.image unless user.image.blank?
+    image_path = user.image.presence || '/noimage.png'
     haml_tag(:img,src:image_path)
   end
   def page_title
