@@ -5,16 +5,18 @@
 /current_user.cheers.find_by(recipient_id:@user.id)
 %i.fa.fa-glass
 %span.glyphicon.glyphicon-star
+
 = form_tag(cheer_path(@user),remote:true,method:"get") do |f|
-  =hidden_field_tag :is_valid,true
+  - if current_user.cheers.where(recipient_id:@user.id).exists?
+    - is_valid = current_user.cheers.where(recipient_id:@user.id).last[:is_valid]
+  - else
+    - is_valid = false
+  - text= is_valid ? "応援しています": "応援する"
+  =hidden_field_tag :is_valid,!is_valid
   %button.btn.btn-sm.btn-block.btn-default#cheers{:type=>"submit"}
-
-    %span#cheer_text 応援する
-
-=link_to cheer_path(@user),remote:true do
-  %button.btn.btn-sm.btn-block.btn-default
     %i.fa.fa-bullhorn
-    %span#cheer_text 応援する
+    %span#cheer_text=text
+
 - if @user==current_user
   = link_to '編集', edit_user_path(@user),class:"btn btn-primary"
 

@@ -48,6 +48,7 @@ class UsersController < ApplicationController
     cheer=current_user.cheers.build(recipient_id:params[:id],is_valid:params[:is_valid])
     # 保存する
     cheer.save
+    head 200
   end
 
   private

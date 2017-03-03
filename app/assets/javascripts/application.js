@@ -13,49 +13,56 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require turbolinks
 //= require_tree .
 //= require ckeditor/init
-
-$(function(){
-  $('#cheers').on('click', function() {
-    that=$("input#is_valid").val();
-    if (that=="true") {
-      $("input#is_valid").val("false");
-      $("#cheer_text").text("応援する");
-    } else {
-      $("input#is_valid").val("true");
-      $("#cheer_text").text("応援しています");
-    }
-  });
-})
-
-
-$(function(){
-    var setFileInput = $('.form-group'),
-    setFileImg = $('.j-img');
-    var selfFile = $(this),
-    selfInput = $(this).find('input[type=file]'),
-    prevElm = $("form").find(setFileImg),
-    orgPass = prevElm.attr('src');
-
-    selfInput.change(function(){
-        var file = $(this).prop('files')[0],
-        fileRdr = new FileReader();
-
-        if (!this.files.length){
-            prevElm.attr('src', orgPass);
-            return;
-        } else {
-            if (!file.type.match('image.*')){
-                prevElm.attr('src', orgPass);
-                return;
-            } else {
-                fileRdr.onload = function() {
-                    prevElm.attr('src', fileRdr.result);
-                }
-                fileRdr.readAsDataURL(file);
-            }
-        }
+$(document).on('ready page:load', function(event) {
+    alert("そもそも");
+    $('#cheers').on('click', function() {
+      alert("クリックは完治してるか？");
+      that=$("input#is_valid").val();
+      if (that=="true") {
+        alert("応援していますに変える");
+        $("#cheer_text").text("応援しています");
+        setTimeout(function(){
+       $("input#is_valid").val("false");
+        },1000);
+      } else {
+        alert("応援するに変える");
+        $("#cheer_text").text("応援する");
+        setTimeout(function(){
+       $("input#is_valid").val("true");
+        },1000);
+      }
     });
+
+      var setFileInput = $('.form-group'),
+      setFileImg = $('.j-img');
+      var selfFile = $(this),
+      selfInput = $(this).find('input[type=file]'),
+      prevElm = $("form").find(setFileImg),
+      orgPass = prevElm.attr('src');
+
+      selfInput.change(function(){
+          var file = $(this).prop('files')[0],
+          fileRdr = new FileReader();
+
+          if (!this.files.length){
+              prevElm.attr('src', orgPass);
+              return;
+          } else {
+              if (!file.type.match('image.*')){
+                  prevElm.attr('src', orgPass);
+                  return;
+              } else {
+                  fileRdr.onload = function() {
+                      prevElm.attr('src', fileRdr.result);
+                  }
+                  fileRdr.readAsDataURL(file);
+              }
+          }
+  });
+
+
 });
