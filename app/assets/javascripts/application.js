@@ -16,6 +16,21 @@
 //= require turbolinks
 //= require_tree .
 //= require ckeditor/init
+
+$(function(){
+  $('#cheers').on('click', function() {
+    that=$("input#is_valid").val();
+    if (that=="true") {
+      $("input#is_valid").val("false");
+      $("#cheer_text").text("応援する");
+    } else {
+      $("input#is_valid").val("true");
+      $("#cheer_text").text("応援しています");
+    }
+  });
+})
+
+
 $(function(){
     var setFileInput = $('.form-group'),
     setFileImg = $('.j-img');
@@ -23,25 +38,20 @@ $(function(){
     selfInput = $(this).find('input[type=file]'),
     prevElm = $("form").find(setFileImg),
     orgPass = prevElm.attr('src');
-    console.log(selfInput);
 
     selfInput.change(function(){
-      console.log("チャンジ");
         var file = $(this).prop('files')[0],
         fileRdr = new FileReader();
 
         if (!this.files.length){
             prevElm.attr('src', orgPass);
-            console.log(prevElm+"これか");
             return;
         } else {
             if (!file.type.match('image.*')){
                 prevElm.attr('src', orgPass);
-                console.log(prevElm);
                 return;
             } else {
                 fileRdr.onload = function() {
-                  console.log(prevElm);
                     prevElm.attr('src', fileRdr.result);
                 }
                 fileRdr.readAsDataURL(file);

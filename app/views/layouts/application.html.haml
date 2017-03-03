@@ -6,16 +6,19 @@
 
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Fredericka+the+Great"
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = favicon_link_tag("favicon.ico")
   %body
     %nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
           =link_to "",root_path,class:"navbar-brand"
-        %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
+          %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
         .navbar-collapse.collapse.navbar-responsive-collapse.navbar-right
           %ul.nav.navbar-nav
             - if user_signed_in?
@@ -28,11 +31,18 @@
               %li= link_to "Twitterでログイン", user_twitter_omniauth_authorize_path
     .container
       .row
-        .col-----mitaina
+        .col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3
           - flash.each do |type, msg|
             - type="success" if type=="notice"
             %div{class: "alert alert-#{type}"}
               =msg
               %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
                 %span{"aria-hidden" => "true"} ×
+          .btn-group.btn-group-justified{:role => "group", :style => "margin-bottom:10px;"}
+            .btn-group{:role => "group"}
+              %button.header-nav-text.btn.btn-lg.btn-warning{:onclick => "location.href='./'", :type => "button"} トップページ
+            .btn-group{:role => "group"}
+              %button.header-nav-text.btn.btn-lg.btn-warning{:onclick => "location.href='./ranking'", :type => "button"} ランキング
+            .btn-group{:role => "group"}
+              %button.header-nav-text.btn.btn-lg.btn-warning{:onclick => "location.href='./search'", :type => "button"} 検索
           = yield

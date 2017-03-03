@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy,:cheer]
   # 権限があるか認証
-  before_action :is_user_permitted, except:[:index,:show]
+  before_action :is_user_permitted, except:[:index,:show,:cheer]
   # GET /users
   # GET /users.json
   def index
@@ -44,13 +44,10 @@ class UsersController < ApplicationController
   end
 
   def cheer
-    # 応援しているかを取得、または新規作成
-    cheer=current_user.cheers.find_or_create_by(recipient_id:params[:cheer][:recipient_id])
-    # 応援しているかどうかを入れかえる
-    cheer.is_valid = !params[:cheer][:is_valid]
-    if cheer.save
-      puts "something"
-        # 何かを返したい→その結果ボタンが入れ替わる
+    # 応援しているかを新規作成
+    cheer=current_user.cheers.build(recipient_id:params[:id],is_valid:params[:is_valid])
+    # 保存する
+    cheer.save
   end
 
   private
