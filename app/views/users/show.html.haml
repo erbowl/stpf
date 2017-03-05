@@ -1,39 +1,221 @@
-%h1=@user.nickname+"さんのプロフィール"
--user_img(@user)
-%p=@user.nickname
-%p=@user.email
-/current_user.cheers.find_by(recipient_id:@user.id)
-%i.fa.fa-glass
-%span.glyphicon.glyphicon-star
+.panel.panel-danger
+  .panel-body
+    .prof_area.row
+      .col-xs-4.prof_img_area
+        %img.header-pic-img.img-circle{:src => img_path(@user)}
+      .col-xs-8
+        %p.prof_username=@user.nickname+"学年ダミー"
+        %p.prof_text 一言ダミー
+        =render 'cheer'
+    .user-status
+      %table.table.table-striped.table-bordered
+        %tbody
+          %tr
+            %td.text-center
+              %i.fa.fa-eye
+              5viewsダミー
+            %td.text-center
+              %i.fa.fa-bullhorn
+              %a{"data-target" => "#ouen_count", "data-toggle" => "modal", :href => "#"}
+                %span#reco_count #{@cheers.count}
+                人が応援中　
+    / モーダルウィンドウの中身
+    #ouen_count.modal.fade{:style => "display: none;"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
+            %h5.modal-title{:style => "font-weight:bold;"}
+              #{@user.nickname}さんを応援中のユーザー（
+              %span#reco_count #{@cheers.count}
+              人）
+          .modal-body
+            %p まだ#{@user.nickname}さんを応援している勉強垢はいません。
+            %p
+              %a{:href => "https://twitter.com/intent/tweet?&text=さんは勉強垢図鑑にプロフィール【https%3A%2F%2Fstpf.jp%2F】を公開しました。%0a\n  &hashtags=%E5%8B%89%E5%BC%B7%E5%9E%A2%E5%9B%B3%E9%91%91%2C%E5%8B%89%E5%BC%B7%E5%9E%A2%E3%81%95%E3%82%93%E3%81%A8%E7%B9%8B%E3%81%8C%E3%82%8A%E3%81%9F%E3%81%84\n  &dnt=true"}> Twitterで自分のページをシェア
+              して応援してくれるユーザーを増やそう！
+          .modal-footer
+    #myModal.modal.fade{"aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+      .modal-dialog{:role => "document"}
+        .modal-content.col-md-8.col-md-offset-2.text-center
+          .modal-header
+            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
+            %h4#myModalLabel.modal-title 勉強垢図鑑を始める
+          .modal-body
+            %h5 新規会員登録
+            %p{:style => "font-size:0.8em;"}
+              %a{:href => "./policy"}> 利用規約
+              と
+              %a{:href => "./privacy_policy"}> プライバシーポリシー
+              に同意して
+            %p
+            %form{:action => "tw_login.php", :method => "post"}
+              %button.btn.btn-info.btn-lg.btn-block{:type => "submit"} Twitterで新規登録
+            %p
+            %p または
+            %form.form-inline{:action => "email_login.php", :method => "post"}
+              %p
+                %input#exampleInputEmail3.form-control{:name => "email", :placeholder => "メールアドレス", :type => "email"}/
+              %p
+                %input#exampleInputPassword3.form-control{:name => "password", :placeholder => "パスワード", :type => "password"}/
+              %input{:name => "sign", :type => "hidden", :value => "up"}/
+              %input{:name => "token", :type => "hidden", :value => "1cd15b5bd86bbdb275ff4b6b56a254ef"}/
+              %button.btn.btn-warning.btn-lg.btn-block メールアドレスで新規登録
+            %hr/
+            %h5 ログイン（登録済の方）
+            %p
+            %form{:action => "tw_login.php", :method => "get"}
+              %button.btn.btn-info.btn-lg.btn-block{:type => "submit"} Twitterでログイン
+              %input{:name => "username", :type => "hidden", :value => "aoink199751244"}/
+            %p
+            %p または
+            %form.form-inline{:action => "email_login.php", :method => "post"}
+              %p
+                %input#exampleInputEmail3.form-control{:name => "email", :placeholder => "メールアドレス", :type => "email"}/
+              %p
+                %input#exampleInputPassword3.form-control{:name => "password", :placeholder => "パスワード", :type => "password"}/
+              %input{:name => "token", :type => "hidden", :value => "1cd15b5bd86bbdb275ff4b6b56a254ef"}/
+              %input{:name => "username", :type => "hidden", :value => "aoink199751244"}/
+              %button.btn.btn-warning.btn-lg.btn-block{:type => "submit"} メールアドレスでログイン
+    %h4 Ranking
+    .ranking_area.row
+      .ranking_area_left.col-xs-4
+        .panel.panel-danger
+          .panel-heading.text-center
+            アクセス数
+            %br>/
+            （累計）
+          .panel-body.text-center
+            ダミ位
+            %span.ranking-bottom /だみ人
+      .ranking_area_middle.col-xs-4
+        .panel.panel-danger
+          .panel-heading.text-center
+            アクセス数
+            %br>/
+            （昨日）
+          .panel-body.text-center
+            だ位
+            %span.ranking-bottom /み人
+      .ranking_area_right.col-xs-4
+        .panel.panel-danger
+          .panel-heading.text-center
+            応援数
+            %br>/
+            （累計）
+          .panel-body.text-center
+            ?位
+            %span.ranking-bottom /だみ人
+    / プロフィールのリンクエリア（Studyplus,Twitterなど）
+    %h4 Follow me!
+    .profile-links
+      %a{:href => "https://twitter.com/Aoink_10h"}
+        %img{:alt => "twitter", :height => "50px", :src => "/twitter.png", :width => "50px"}/
+      %a{:href => "https://studyplus.jp/users/2488f5b2d09811e5b91822000a7d822e"}
+        %img{:alt => "studyplus", :height => "50px", :src => "/studyplus.png", :width => "50px"}/
+    %h4 Details
+    %table.profile-detail.table.table-striped
+      %tbody
+        %tr
+          %th.col-xs-4.col-md-3.text-center 志望大学
+          %td
+            %a.label.label-default{:href => "search?univ%5B%5D=509"} 千葉大学だ
+        %tr
+          %th.col-xs-4.col-md-3.text-center 志望学部
+          %td
+            %a.label.label-default{:href => "search?department%5B%5D=9"} 薬学部だ
+        %tr
+          %th.col-xs-4.col-md-3.text-center 得意科目
+          %td
+            %a.label.label-default{:href => "search?tags%5B%5D=英語"} 英語だ
+        %tr
+          %th.col-xs-4.col-md-3.text-center 苦手科目
+          %td
+            %a.label.label-default{:href => "search?tags%5B%5D=全部"} 全部だ
+        %tr
+          %th.col-xs-4.col-md-3.text-center 部活動
+          %td
+            %a.label.label-default{:href => "search?activity%5B%5D=茶道部"} 茶道部だ
+        %tr
+          %th.col-xs-4.col-md-3.text-center 趣味・好きなもの
+          %td
+            %a.label.label-default{:href => "search?tags%5B%5D=KinKi Kids"} KinKi Kidsだ
+            %a.label.label-default{:href => "search?tags%5B%5D=ラブライブ"} ラブライブ
+        %tr
+          %th.col-xs-4.col-md-3.text-center 予備校・通信教育
+          %td
+            %a.label.label-default{:href => "search?tags%5B%5D=河合塾マナビス"} 河合塾マナビス
+        %tr
+          %th.col-xs-4.col-md-3.text-center 目標勉強時間
+          %td 週30時間以上
+    / ----------- Q&A ------------
+    %h4 Q&A
+    .panel.panel-danger
+      .panel-heading Q. 好きな映画は？
+      .panel-body
+        A. ビリギャル、ラブライブ、まどまぎ
+    .panel.panel-danger
+      .panel-heading Q. 大学に入ったら何をしたい？
+      .panel-body
+        A. きままにいきたい
+    / ブログ
+    :javascript
+      function disp(num){
 
-= form_tag(cheer_path(@user),remote:true,method:"get") do |f|
-  - if current_user.cheers.where(recipient_id:@user.id).exists?
-    - is_valid = current_user.cheers.where(recipient_id:@user.id).last[:is_valid]
-  - else
-    - is_valid = false
-  - text= is_valid ? "応援しています": "応援する"
-  =hidden_field_tag :is_valid,!is_valid
-  %button.btn.btn-sm.btn-block.btn-default#cheers{:type=>"submit"}
-    %i.fa.fa-bullhorn
-    %span#cheer_text=text
-
-- if @user==current_user
-  = link_to '編集', edit_user_path(@user),class:"btn btn-primary"
-
-%h2 ブログ
-- if @user==current_user
-  = link_to '新規作成',new_post_path
-- if @posts.empty?
-  %p="まだ#{@user.nickname}さんのブログはありません。ブログが始まるのが楽しみですね。"
-- @posts.each do |post|
-  - if post.is_draft && current_user==@user
-    %h3="（下書き）#{post.title}"
-  - elsif post.is_draft && current_user!=@user
-    -next
-  - else
-    %h3=post.title
-  %p=time_ago_in_words post.created_at
-  =post.content.html_safe
-  - if current_user==@user
-    = link_to "編集",edit_post_path(post)
-    = link_to "削除",post,method: :delete,data:{confirm:'本当に削除しますか？'}
+        // 「OK」時の処理開始 ＋ 確認ダイアログの表示
+        if(window.confirm('本当に削除しますか？')){
+          var id = num;
+          // 「OK」時の処理終了
+          location.href = "./blog_delete?id="+id;
+        }
+        // 「キャンセル」時の処理開始
+        else{
+          window.alert('キャンセルされました'); // 警告ダイアログを表示
+        }
+        // 「キャンセル」時の処理終了
+      }
+    %h4 Related Users
+    / おすすめ
+    %hr/
+    .prof_area.row
+      .col-xs-4.prof_img_area
+        %a{:href => "/shirleyandgrenadine"}
+          %img.header-pic-img.img-circle{:alt => "Shirley", :border => "0", :src => "https://stpf.jp/img/userimage/79.png", :width => "100%"}/
+      .col-xs-8
+        %p.prof_related
+          %span.label.label-info おすすめ
+          %a{:href => "/shirleyandgrenadine"} Shirley　高3
+        %p.prof_text_related 高3です！よろしくお願いします！
+    %hr/
+    .prof_area.row
+      .col-xs-4.prof_img_area
+        %a{:href => "/miwa2001"}
+          %img.header-pic-img.img-circle{:alt => "wammi❀study❀", :border => "0", :src => "https://stpf.jp/img/userimage/751641043888541696.jpg", :width => "100%"}/
+      .col-xs-8
+        %p.prof_related
+          %span.label.label-warning 志望大学が同じ
+          %a{:href => "/miwa2001"} wammi❀study❀　中3
+        %p.prof_text_related 一緒に頑張りましょう꒰｡•`ｪ´•｡꒱۶
+    %hr/
+    .prof_area.row
+      .col-xs-4.prof_img_area
+        %a{:href => "/mxjp24"}
+          %img.header-pic-img.img-circle{:alt => "ユｳ", :border => "0", :src => "https://stpf.jp/img/userimage/759541086683443201.jpg", :width => "100%"}/
+      .col-xs-8
+        %p.prof_related
+          %span.label.label-success 志望学部が同じ
+          %a{:href => "/mxjp24"} ユｳ　高2
+        %p.prof_text_related よろしくお願いします
+    %hr/
+    .prof_area.row
+      .col-xs-4.prof_img_area
+        %a{:href => "/studytime"}
+          %img.header-pic-img.img-circle{:alt => "ｱﾕﾐ@勉強垢", :border => "0", :src => "https://stpf.jp/img/userimage/810472723080040448.jpg", :width => "100%"}/
+      .col-xs-8
+        %p.prof_related
+          %span.label.label-danger 学年が同じ
+          %a{:href => "/studytime"} ｱﾕﾐ@勉強垢　高1
+        %p.prof_text_related 頑張って国立目指してます！
+    %hr/

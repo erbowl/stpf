@@ -33,21 +33,11 @@
         .col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3
           - flash.each do |type, msg|
             - type="success" if type=="notice"
-            - type="danger" if type=="alert"
             %div{class: "alert alert-#{type}"}
               =msg
               %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
                 %span{"aria-hidden" => "true"} ×
-          .btn-group.btn-group-justified{:role => "group"}
-            - paths={"トップ"=>root_path,"ランキング"=>root_path,"検索"=>root_path}
-            - paths.each do |key,path|
-              .btn-group{:role => "group"}
-                %button.button.header-nav-text.btn.btn-lg.btn-warning=link_to key,path
-          .btn-group.btn-group-justified{:role => "group"}
-            - paths={"新着"=>root_path,"アクセス数"=>root_path,"応援されてる数"=>root_path}
-            - paths.each do |key,path|
-              .btn-group{:role => "group"}
-                %button.btn.btn-info=link_to key,path,class:"active"
+      
           = yield
         %footer.footer
           .container

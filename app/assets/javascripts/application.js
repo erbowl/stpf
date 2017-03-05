@@ -18,18 +18,18 @@
 //= require_tree .
 //= require ckeditor/init
 $(document).on('ready page:load', function(event) {
-    alert("そもそも");
+    // alert("そもそも");
     $('#cheers').on('click', function() {
-      alert("クリックは完治してるか？");
+      // alert("クリックは完治してるか？");
       that=$("input#is_valid").val();
       if (that=="true") {
-        alert("応援していますに変える");
+        // alert("応援していますに変える");
         $("#cheer_text").text("応援しています");
         setTimeout(function(){
        $("input#is_valid").val("false");
         },1000);
       } else {
-        alert("応援するに変える");
+        // alert("応援するに変える");
         $("#cheer_text").text("応援する");
         setTimeout(function(){
        $("input#is_valid").val("true");

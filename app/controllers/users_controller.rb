@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @posts=@user.posts.order("id desc")
+    @cheers=Cheer.where(recipient_id:@user.id)
   end
 
   # GET /users/1/edit

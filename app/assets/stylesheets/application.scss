@@ -17,12 +17,337 @@
  *= require_self
  */
 
-.navbar-brand{
-     background: url("/stpf_logo.png") no-repeat left center;
-     background-size: contain;
-     height: 50px;
-     width: 180px;
- }
+// 元のcss
+
+body{
+  font-family: 游ゴシック体, 'Yu Gothic', YuGothic, 'ヒラギノ角ゴシック Pro', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+}
+
+.top_1{
+  background-image: url('../img/top.jpg');
+  background-attachment: fixed;
+  height:500px;
+  /* color: #ffffff; */
+  background-position : 50% 50%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 370px){
+  .top_1{
+    height:370px;
+	}
+}
+
+@media screen and (min-width: 370px) and (max-width: 480px){
+  .top_1{
+    height:430px;
+	}
+}
+
+
+.top_1 > .transparent > .container{
+  padding-top:50px;
+}
+
+.top_1 h5{
+  font-weight:bold;
+  font-size:1.2em;
+  padding:5px 0px;
+}
+
+
+.transparent{
+  background-color:   rgba(255,255,255,0.5);
+  height:500px;
+}
+
+.top_2{
+  /*background-color:pink;*/
+  padding-bottom:20px;
+}
+
+.top_2 h3{
+  padding-bottom:10px;
+  font-weight:bold;
+}
+
+
+.top_message{
+  color:#333;
+  font-size:1.8em;
+  text-align:center;
+  font-weight:bold;
+  padding-top:20px;
+}
+
+.top_lead{
+  color:#333;
+  font-size:1.2em;
+  text-align:center;
+  line-height:1.8em;
+}
+
+p.top_logo img{
+  width:60%;
+  display: block;
+  margin: 0 auto;
+  margin-left: auto;/*これでもOK*/
+  margin-right: auto;/*これでもOK*/
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 370px){
+
+  .top_message{
+    font-size:1em;
+  }
+
+  .top_lead{
+    font-size:0.8em;
+  }
+
+  p.top_logo img{
+    width:80%;
+  }
+
+  .header-nav-text {
+    font-size:0.6em;
+    padding:10px 3px;
+  }
+
+}
+
+@media screen and (min-width: 370px) and (max-width: 480px){
+ .top_message{
+    font-size:1.2em;
+    padding-top:40px;
+  }
+
+  .top_lead{
+    font-size:0.9em;
+  }
+
+  p.top_logo img{
+    width:80%;
+  }
+
+  .header-nav-text {
+    font-size:0.8em;
+    padding:10px 3px;
+  }
+}
+
+
+
+.navbar-brand {
+  background: url("/stpf_logo.png") no-repeat left center;
+  background-size: contain;
+  width: 150px;
+}
+
+
+.fa-twitter-color{
+    color: #A4C639;
+}
+
+.header-pic{
+    position: relative;
+    width:100%;
+}
+
+.header-pic-img{
+  border: 0px;
+  width: 100%;
+}
+
+td.text-center{
+  width:50%;
+}
+
+.btn-group-justified{
+  margin-bottom: 10px;
+}
+
+.header-pic-textarea{
+    position: absolute;
+    width:100%;
+    padding:15px;
+    bottom:0px;
+}
+
+.header-pic-edit{
+  position: absolute;
+  width:100%;
+  color:#fff;
+  font-size:2em;
+  top:140px;
+  text-align:center;
+  text-shadow: 2px 2px 2px #999;
+
+}
+
+.header-pic-textarea p{
+    color: #fff;
+    font-size:1.3em;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.fav{
+	position:absolute;
+	right:10px;
+	top:10px;
+}
+
+.arrow_box {
+	position: relative;
+	background: #ffffff;
+	border: 1px solid #666666;
+	padding:5px;
+	font-size:0.8em;
+}
+.arrow_box:after, .arrow_box:before {
+	bottom: 100%;
+	left: 10%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #ffffff;
+	border-width: 7px;
+	margin-left: -7px;
+}
+.arrow_box:before {
+	border-color: rgba(102, 102, 102, 0);
+	border-bottom-color: #666666;
+	border-width: 8px;
+	margin-left: -8px;
+}
+
+a {
+text-decoration: none !important;
+}
+
+.badge{
+	background-color:#666;
+}
+
+.navbar-brand {
+  background: url("/stpf_logo.png") no-repeat left center;
+  background-size: contain;
+  height: 50px;
+  width: 180px;
+}
+
+.user-status{
+  margin-top:10px;
+}
+
+.user-status > .table{
+  margin-bottom:0px;
+}
+
+.howto-guide{
+  padding-left:20px;
+}
+
+h4{
+  font-family: 'Fredericka the Great', cursive;
+  font-size:1.5em;
+  margin:15px 0px 10px 0px;
+}
+
+.form-group > label{
+  margin-top:5px;
+}
+
+#myModal2 .modal-body{
+  padding:0px 0px 20px 0px;
+}
+
+#myModal2 .form-control{
+  width:100%;
+}
+
+#photos img{
+  width:80px;
+  margin:5px;
+}
+
+.delete_photo {
+  float: right;
+  display: inline-block;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.ranking-table tr th{
+  text-align:center;
+  width:50%;
+  background-color:#F9F9F9;
+}
+
+.ranking-table tr td{
+  text-align:center;
+  width:50%;
+}
+
+.ranking_area .ranking-bottom{
+  font-size:0.5em;
+  margin-left:2px;
+}
+
+.ranking_area_left{
+  padding-right:5px;
+}
+
+.ranking_area_middle{
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.ranking_area_right{
+  padding-left:5px;
+}
+
+.ranking_area .panel-heading{
+  font-size:0.7em;
+  padding:8px 3px;
+}
+
+.ranking_area .panel-body{
+  padding:8px 3px;
+}
+
+.ranking_area .panel{
+  margin-bottom:0px;
+}
+
+.prof_area p.prof_username{
+  font-size:1.3em;
+}
+
+.prof_area .prof_img_area{
+  padding-right:5px;
+}
+
+.prof_area p.prof_text{
+  font-size:0.9em;
+}
+
+// 自分なり
+
+.btn-group.btn-group-justified a{
+  color:#ffffff;
+  display: block;
+}
+
+
+
 
  /* Sticky footer styles
  -------------------------------------------------- */

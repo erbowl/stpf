@@ -1,11 +1,11 @@
 .row
-  .col-lg-4.col-lg-offset-4
-    %h2 Log in
+  .col-lg-6.col-lg-offset-3
+    %h2 ログイン
     = bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       = f.email_field :email, autofocus: true
       = f.password_field :password, autocomplete: "off"
       - if devise_mapping.rememberable?
-        = f.check_box :remember_me
-      = f.submit "Log in"
+        = f.check_box :remember_me,label:"次回から省略"
+      = f.submit "ログイン"
 
     = render "devise/shared/links"

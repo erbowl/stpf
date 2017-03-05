@@ -1,7 +1,6 @@
 module ApplicationHelper
-  def user_img(user)
-    image_path = user.image.presence || '/noimage.png'
-    haml_tag(:img,src:image_path)
+  def img_path(user)
+    user.image.presence || '/noimage.png'
   end
   def page_title
     title = "勉強垢図鑑"

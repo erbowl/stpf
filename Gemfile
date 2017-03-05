@@ -13,7 +13,7 @@ gem 'bootstrap-sass'
 
 # 画像アップロード関連
 gem 'carrierwave'
-gem 'mini_magick'
+gem 'rmagick'# 今回のリサイズ処理に必要
 
 # twitterlogin用
 gem 'omniauth-twitter'
