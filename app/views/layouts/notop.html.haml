@@ -1,44 +1,13 @@
 !!!
 %html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title=page_title
-    = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Fredericka+the+Great"
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    = favicon_link_tag("favicon.ico")
+  =render 'layouts/head'
   %body
-    %nav.navbar.navbar-default.navbar-fixed-top
-      .container
-        .navbar-header
-          =link_to "",root_path,class:"navbar-brand"
-          %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-        .navbar-collapse.collapse.navbar-responsive-collapse.navbar-right
-          %ul.nav.navbar-nav
-            - if user_signed_in?
-              %li= link_to "マイページ", user_path(current_user)
-              %li= link_to "プロフィール編集", edit_user_path(current_user)
-              %li= link_to "新規ブログ作成", new_post_path
-              %li= link_to "ログアウト", destroy_user_session_path, method: :delete
-            - else
-              %li= link_to "ログイン", new_user_session_path
-              %li= link_to "Twitterでログイン", user_twitter_omniauth_authorize_path
+    =render 'layouts/navbar'
     .container
       .row
         .col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3
-          - flash.each do |type, msg|
-            - type="success" if type=="notice"
-            %div{class: "alert alert-#{type}"}
-              =msg
-              %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
-                %span{"aria-hidden" => "true"} ×
-      
-          = yield
-        %footer.footer
-          .container
-            %p.text-muted.text-center Copyright © 勉強垢図鑑 All Rights Reserved.
+          .row
+            .col-lg-6.col-lg-offset-3
+              =render 'layouts/flash'
+              = yield
+        =render 'layouts/footer'

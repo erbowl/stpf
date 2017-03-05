@@ -1,0 +1,19 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      =link_to "",root_path,class:"navbar-brand"
+      %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .navbar-collapse.collapse.navbar-responsive-collapse.navbar-right
+      %ul.nav.navbar-nav
+        - if user_signed_in?
+          %li= link_to "マイページ", user_path(current_user)
+          %li= link_to "プロフィール編集", edit_user_path(current_user)
+          %li= link_to "新規ブログ作成", new_post_path
+          %li= link_to "ログアウト", destroy_user_session_path, method: :delete
+        - else
+          %li= link_to "新規作成", new_user_registration_path
+          %li= link_to "ログイン", new_user_session_path
+          %li= link_to "Twitterでログイン", user_twitter_omniauth_authorize_path
