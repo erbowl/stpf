@@ -5,9 +5,7 @@
     =render 'layouts/navbar'
     .container
       .row
-        .col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3
-          .row
-            .col-lg-6.col-lg-offset-3
-              =render 'layouts/flash'
-              = yield
+        .col-sm-4.col-sm-offset-4.col-md-4.col-md-offset-4          
+          =render 'layouts/flash'
+          = yield
         =render 'layouts/footer'

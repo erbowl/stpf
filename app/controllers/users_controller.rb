@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def show
     @posts=@user.posts.order("id desc")
     @cheers=Cheer.where(recipient_id:@user.id)
+    @user_1=User.new unless user_signed_in?
   end
 
   # GET /users/1/edit
@@ -60,7 +61,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:nickname,:email,:image)
+      params.require(:user).permit(:nickname,:email,:image,:twitter,:instagram,:studyplus,:department,:university,:age,:gender,:comment,:like_subject,:dislike_subject)
     end
 
     def is_user_permitted()

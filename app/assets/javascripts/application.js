@@ -17,6 +17,27 @@
 //= require turbolinks
 //= require_tree .
 //= require ckeditor/init
+
+// プラマイで開閉するやつ
+$(document).ready(function(){
+  $('#navi > .open').next().show();
+  $('#navi > .open').click(function(){
+    // 引数には開閉する速度を指定します
+    $(this).next().slideToggle('slow');
+    $(this).children('i').toggleClass('fa-plus-circle');
+    $(this).children('i').toggleClass('fa-minus-circle');
+  });
+
+  $('#navi > .closed').next().hide();
+  $('#navi > .closed').click(function(){
+    // 引数には開閉する速度を指定します
+    $(this).next().slideToggle('slow');
+    $(this).children('i').toggleClass('fa-minus-circle');
+    $(this).children('i').toggleClass('fa-plus-circle');
+  });
+
+});
+
 $(document).on('ready page:load', function(event) {
     // alert("そもそも");
     $('#cheers').on('click', function() {
@@ -37,14 +58,11 @@ $(document).on('ready page:load', function(event) {
       }
     });
 
-      var setFileInput = $('.form-group'),
+
       setFileImg = $('.j-img');
-      var selfFile = $(this),
-      selfInput = $(this).find('input[type=file]'),
       prevElm = $("form").find(setFileImg),
       orgPass = prevElm.attr('src');
-
-      selfInput.change(function(){
+      $("#form").change(function(){
           var file = $(this).prop('files')[0],
           fileRdr = new FileReader();
 

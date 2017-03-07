@@ -1,0 +1,394 @@
+= bootstrap_form_for(@user) do |f|
+  .panel.panel-info
+    .panel-body
+      #result.header-pic{:onclick => "$('#form').click();"}
+        %img.header-pic-img{:alt => "ショスタコーヴィッチ", :border => "0", :src => "https://stpf.jp/img/noimage.png", :width => "100%"}/
+        .header-pic-edit
+          %i.fa.fa-camera{"aria-hidden" => "true"}
+          画像を変更する
+        .header-pic-textarea
+          %p ショスタコーヴィッチ 中2
+          .arrow_box よろしくお願いします
+      .well{:style => "margin-top:15px;"}
+        一言コメントは、基本プロフィールの一言コメントから編集できます。
+      #navi.panel.panel-default
+        %h4.panel-heading.panel-title.open
+          %i.fa-minus-circle.fa
+          SNS
+        .panel-body
+          .form-group
+            %label{:for => "insta"} Instagramアカウント名
+            %input.form-control{:name => "insta", :placeholder => "", :type => "text", :value => ""}/
+          .form-group
+            %label{:for => "tw_screenname"} Twitterアカウント名
+            %input.form-control{:name => "tw_screenname", :placeholder => "", :type => "text", :value => "hexagram6DSCH"}/
+          .form-group
+            %label{:for => "studyplus"} Studyplus URL
+            %button{"data-target" => "#myModal", "data-toggle" => "modal", :style => "margin-bottom:10px;margin-left:15px;", :type => "button"}
+              %i.fa.fa-info-circle>
+              studyplusのURLの取得方法
+            %input.form-control{:name => "studyplus", :placeholder => "http://studyplus.jp/users/....", :type => "text", :value => ""}/
+          / モーダルウィンドウの中身
+          #myModal.modal.fade
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                    %span{"aria-hidden" => "true"} ×
+                  %h4.modal-title studyplusのURLを取得するには
+                .modal-body
+                  %p
+                    studyplusのURLはstudyplusのアプリから取得することができません。パソコンまたはスマートフォンのブラウザ（Safari,chromeなど）から
+                    %a{:href => "http://studyplus.jp/"}> studyplusのサイト
+                    にログインしましょう。
+                    %br/
+                  %p ログインしたらパソコンなら自分のアイコンを押して、スマホなら左上のMENUボタンを押してマイページに移動しましょう。
+                  %p{:style => "margin: 5px auto;text-align:center"}
+                    %img.header-pic-img{:alt => "", :border => "0", :src => "./img/slide2.jpg", :width => "80%"}/
+                  %p マイページに移動したら画面上部のstudyplus.jpと書いてあるリンクをクリックしてリンクをコピーして下の空欄に貼付けると完了です。
+                  %p{:style => "margin: 5px auto;text-align:center"}
+                    %img.header-pic-img{:alt => "", :border => "0", :src => "./img/slide3.jpg", :width => "80%"}/
+                .modal-footer
+                  %button.btn.btn-lg.btn-block.btn-primary{"data-dismiss" => "modal", :type => "button"} 閉じる
+          / /モーダルウィンドウの中身
+        %h4.panel-heading.panel-title.open
+          %i.fa-minus-circle.fa
+          基本プロフィール（必須）
+        .panel-body
+          .form-group
+            %label{:for => "nickname"}
+              ニックネーム
+              %span{:style => "color:red;"} ※
+            %input.form-control{:name => "nickname", :placeholder => "", :type => "text", :value => "ショスタコーヴィッチ"}/
+          .form-group
+            %label{:for => "age"}
+              現在の学年
+              %span{:style => "color:red;"} ※
+            %select.form-control{:name => "age"}
+              %option{:value => ""} 選択しない
+              %option{:value => "1"} 中学1年生
+              %option{:selected => "selected", :value => "2"} 中学2年生
+              %option{:value => "3"} 中学3年生
+              %option{:value => "4"} 高校1年生
+              %option{:value => "5"} 高校2年生
+              %option{:value => "6"} 高校3年生
+              %option{:value => "7"} 浪人生
+              %option{:value => "8"} 大学1年生
+              %option{:value => "9"} 大学2年生
+              %option{:value => "10"} 大学3年生
+              %option{:value => "11"} 大学4年生
+              %option{:value => "12"} その他
+          .form-group
+            %label{:for => "gender"}
+              性別
+              %span{:style => "color:red;"} ※
+            .radio
+              %label.radio-inline
+                %input{:checked => "checked", :name => "gender", :type => "radio", :value => "male"}/
+                男
+              %label.radio-inline
+                %input{:name => "gender", :type => "radio", :value => "female"}/
+                女
+          .form-group
+            %label{:for => "univ"}
+              志望大学・所属大学（タグになります）
+              %span{:style => "color:red;"} ※
+            #univ1.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                .ms-sel-item
+                  東京有明医療大学
+                  %span.ms-close-btn
+                %input{:placeholder => "", :style => "width: 452px;", :type => "text"}/
+                %div{:style => "display: none;"}
+                  %input{:name => "univ1[]", :type => "hidden", :value => "547"}/
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label{:for => "st_department"}
+              志望学部（タグになります）
+              %span{:style => "color:red;"} ※
+            #st_department.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                .ms-sel-item
+                  観光学部
+                  %span.ms-close-btn
+                %input{:placeholder => "", :style => "width: 500px;", :type => "text"}/
+                %div{:style => "display: none;"}
+                  %input{:name => "st_department[]", :type => "hidden", :value => "20"}/
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label{:for => "st_subject"}
+              得意科目（タグになります）
+              %span{:style => "color:red;"} ※
+            #st_subject.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                .ms-sel-item
+                  小論文
+                  %span.ms-close-btn
+                %input{:placeholder => "", :style => "width: 512px;", :type => "text"}/
+                %div{:style => "display: none;"}
+                  %input{:name => "st_subject[]", :type => "hidden", :value => "小論文"}/
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label{:for => "st_subject2"}
+              苦手科目（タグになります）
+              %span{:style => "color:red;"} ※
+            #st_subject2.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                .ms-sel-item
+                  国語
+                  %span.ms-close-btn
+                %input{:placeholder => "", :style => "width: 524px;", :type => "text"}/
+                %div{:style => "display: none;"}
+                  %input{:name => "st_subject2[]", :type => "hidden", :value => "国語"}/
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label{:for => "comment1"}
+              一言コメント
+              %span{:style => "color:red;"} ※
+            %input.form-control{:name => "comment1", :placeholder => "", :type => "text", :value => "よろしくお願いします"}/
+        %h4.panel-heading.panel-title.open
+          %i.fa-minus-circle.fa
+          詳細プロフィール
+        .panel-body
+          .form-group
+            %label{:for => "activity"} 部活動（タグになります）
+            #activity.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                .ms-sel-item
+                  弦楽部
+                  %span.ms-close-btn
+                %input{:placeholder => "", :style => "width: 512px;", :type => "text"}/
+                %div{:style => "display: none;"}
+                  %input{:name => "activity[]", :type => "hidden", :value => "弦楽部"}/
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label 趣味・好きなもの
+            #tag1.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                %input{:placeholder => "一部を入力すると候補が表示されます", :style => "width: 584px;", :type => "text"}/
+                %div{:style => "display: none;"}
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label 予備校・通信教育
+            #tag2.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                %input{:placeholder => "一部を入力すると候補が表示されます", :style => "width: 584px;", :type => "text"}/
+                %div{:style => "display: none;"}
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label 将来の夢
+            #tag3.ms-ctn.form-control{:style => ""}
+              %span.ms-helper{:style => "display: none;"}
+              .ms-sel-ctn
+                %input{:placeholder => "一部を入力すると候補が表示されます", :style => "width: 584px;", :type => "text"}/
+                %div{:style => "display: none;"}
+              .ms-trigger
+                .ms-trigger-ico
+          .form-group
+            %label{:for => "p_text1"} 目標勉強時間
+            %input.form-control{:name => "p_text1", :type => "text", :value => ""}/
+          .form-group
+            %label{:for => "p_text2"} フォローする人について
+            %input.form-control{:name => "p_text2", :type => "text", :value => ""}/
+          .form-group
+            %label{:for => "p_text3"} 性格
+            %input.form-control{:name => "p_text3", :type => "text", :value => ""}/
+          .form-group
+            %label{:for => "p_text4"} 今の目標
+            %input.form-control{:name => "p_text4", :type => "text", :value => ""}/
+          .form-group
+            %label{:for => "p_text5"} 座右の銘・好きな言葉
+            %input.form-control{:name => "p_text5", :type => "text", :value => ""}/
+          .form-group
+            %label{:for => "p_text6"} 持っている資格/勉強中の資格
+            %input.form-control{:name => "p_text6", :type => "text", :value => ""}/
+        / <h4 class="panel-heading panel-title open"><i class="fa-minus-circle fa"></i> プロフィール画像の変更</h4>
+        / 以下から画像を変更する
+        .panel-body{:style => "display:none"}
+          .well
+            %p
+              %strong
+                %small 画像を変更
+            .form-group
+              %input{:name => "MAX_FILE_SIZE", :type => "hidden", :value => "1048576"}/
+              %input#form{:name => "image", :type => "file", :value => ""}/
+            :javascript
+              // [#form]が変更された時にイベントを実行する
+                      document.getElementById( "form" ).onchange = function()
+                      {
+                      	// 変数の宣言
+                      	var fileList , file , src , result ;
+
+                      	// ファイルリストを取得
+                      	fileList = this.files ;
+
+                      	// 結果エリアのエレメントを取得
+                      	result = document.getElementById( "result" ) ;
+
+                      	// 結果エリアを一度リセット
+                      	result.innerHTML = "" ;
+
+
+                      	// ローカル画像を表示する (枚数分)
+                      	for( var i=0,l=fileList.length; l>i; i++ )
+                      	{
+                      		// 対象のファイルを取得
+                      		file = fileList[i] ;
+
+                      		// ブラウザごとの違いをフォローする
+                      		window.URL = window.URL || window.webkitURL ;
+
+                      		// Blob URLの作成
+                      		src = window.URL.createObjectURL( file ) ;
+
+                      		// HTMLに書き出し
+                      		result.innerHTML += '<img src="' + src + '" width="100%">'
+                      		+'<div class="header-pic-textarea"><p>ショスタコーヴィッチ 中2</p><div class="arrow_box">よろしくお願いします</div></div>';
+                      	}
+                      }
+        / 以上まで画像を変更する
+        / ------------ Q&A -----------
+        %h4.panel-heading.panel-title.closed
+          %i.fa-plus-circle.fa
+          Q&A
+        .panel-body{:style => "display: none;"}
+          .form-group
+            %label 好きな食べものは？
+            %input.form-control{:name => "questions[food]", :type => "text", :value => ""}/
+          .form-group
+            %label 好きな映画は？
+            %input.form-control{:name => "questions[movie]", :type => "text", :value => ""}/
+          .form-group
+            %label 大学に入ったら何をしたい？
+            %input.form-control{:name => "questions[univ]", :type => "text", :value => ""}/
+        / ------------ /Q&A -----------
+        %h4.panel-heading.panel-title.open
+          %i.fa-minus-circle.fa
+          自由記入
+        .panel-body
+          .form-group
+            %p
+              %textarea.form-control{:name => "free_space", :rows => "3"}
+        %h4.panel-heading.panel-title.closed
+          %i.fa-plus-circle.fa
+          模試データ（グラフになります）
+        .panel-body{:style => "display: none;"}
+          .form-group
+            %p 模試データ1
+            %input.form-control{:max => "2017-03-04", :min => "2014-04-01", :name => "exam[month][]", :type => "month", :value => ""}/
+            %select.form-control{:name => "exam[name][]"}
+              %option{:value => ""} 模試名を選択してください
+              %option{:value => "駿台模試"} 駿台模試
+              %option{:value => "全統模試"} 全統模試
+              %option{:value => "進研模試"} 進研模試
+              %option{:value => "東進模試"} 東進模試
+              %option{:value => "その他"} その他
+            %input.form-control{:max => "150", :min => "-50", :name => "exam[value][]", :placeholder => "偏差値を入力してください", :type => "number", :value => ""}/
+          .form-group
+            %p 模試データ2
+            %input.form-control{:max => "2017-03-04", :min => "2014-04-01", :name => "exam[month][]", :type => "month", :value => ""}/
+            %select.form-control{:name => "exam[name][]"}
+              %option{:value => ""} 模試名を選択してください
+              %option{:value => "駿台模試"} 駿台模試
+              %option{:value => "全統模試"} 全統模試
+              %option{:value => "進研模試"} 進研模試
+              %option{:value => "東進模試"} 東進模試
+              %option{:value => "その他"} その他
+            %input.form-control{:max => "150", :min => "-50", :name => "exam[value][]", :placeholder => "偏差値を入力してください", :type => "number", :value => ""}/
+          .form-group
+            %p 模試データ3
+            %input.form-control{:max => "2017-03-04", :min => "2014-04-01", :name => "exam[month][]", :type => "month", :value => ""}/
+            %select.form-control{:name => "exam[name][]"}
+              %option{:value => ""} 模試名を選択してください
+              %option{:value => "駿台模試"} 駿台模試
+              %option{:value => "全統模試"} 全統模試
+              %option{:value => "進研模試"} 進研模試
+              %option{:value => "東進模試"} 東進模試
+              %option{:value => "その他"} その他
+            %input.form-control{:max => "150", :min => "-50", :name => "exam[value][]", :placeholder => "偏差値を入力してください", :type => "number", :value => ""}/
+          .form-group
+            %p 模試データ4
+            %input.form-control{:max => "2017-03-04", :min => "2014-04-01", :name => "exam[month][]", :type => "month", :value => ""}/
+            %select.form-control{:name => "exam[name][]"}
+              %option{:value => ""} 模試名を選択してください
+              %option{:value => "駿台模試"} 駿台模試
+              %option{:value => "全統模試"} 全統模試
+              %option{:value => "進研模試"} 進研模試
+              %option{:value => "東進模試"} 東進模試
+              %option{:value => "その他"} その他
+            %input.form-control{:max => "150", :min => "-50", :name => "exam[value][]", :placeholder => "偏差値を入力してください", :type => "number", :value => ""}/
+          .form-group
+            %p 模試データ5
+            %input.form-control{:max => "2017-03-04", :min => "2014-04-01", :name => "exam[month][]", :type => "month", :value => ""}/
+            %select.form-control{:name => "exam[name][]"}
+              %option{:value => ""} 模試名を選択してください
+              %option{:value => "駿台模試"} 駿台模試
+              %option{:value => "全統模試"} 全統模試
+              %option{:value => "進研模試"} 進研模試
+              %option{:value => "東進模試"} 東進模試
+              %option{:value => "その他"} その他
+            %input.form-control{:max => "150", :min => "-50", :name => "exam[value][]", :placeholder => "偏差値を入力してください", :type => "number", :value => ""}/
+          .form-group
+            %p 模試データ6
+            %input.form-control{:max => "2017-03-04", :min => "2014-04-01", :name => "exam[month][]", :type => "month", :value => ""}/
+            %select.form-control{:name => "exam[name][]"}
+              %option{:value => ""} 模試名を選択してください
+              %option{:value => "駿台模試"} 駿台模試
+              %option{:value => "全統模試"} 全統模試
+              %option{:value => "進研模試"} 進研模試
+              %option{:value => "東進模試"} 東進模試
+              %option{:value => "その他"} その他
+            %input.form-control{:max => "150", :min => "-50", :name => "exam[value][]", :placeholder => "偏差値を入力してください", :type => "number", :value => ""}/
+        %h4.panel-heading.panel-title.closed
+          %i.fa-plus-circle.fa
+          デザイン
+        .panel-body{:style => "display: none;"}
+          .form-group
+            %label{:for => "pf_color"} デザインパターン
+            %select.form-control{:name => "pf_color"}
+              %option{:selected => "selected", :value => "1"} デフォルト
+              %option{:value => "2"} グリーン
+              %option{:value => "3"} オレンジ
+              %option{:value => "4"} レッド
+              %option{:value => "5"} ブルー
+              %option{:value => "6"} グレー
+        %h4.panel-heading.panel-title.closed
+          %i.fa-plus-circle.fa
+          アルバム
+        .panel-body{:style => "display: none;"}
+          %p
+            %a{:href => "./edit_album"} アルバムの編集はこちら
+      .text-center
+        %p
+          %button.btn.btn-info.btn-lg.btn-block{:type => "submit"} 更新
+
+
+
+
+= bootstrap_form_for(@user) do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+  = f.text_field :nickname,label:"ニックネーム"
+  = f.email_field :email
+  %img.j-img.header-pic-img{src:img_path(@user)}
+  = f.file_field :image
+  .actions
+    = f.submit '更新'

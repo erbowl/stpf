@@ -346,6 +346,14 @@ h4{
   display: block;
 }
 
+.panel-body .well{
+  margin-top:15px;
+}
+
+.kome>.form-group>label:first-child:after{
+  content:" ※";
+  color:red
+}
 
 
 
