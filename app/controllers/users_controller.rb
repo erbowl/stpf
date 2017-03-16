@@ -1,12 +1,30 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy,:cheer]
   # 権限があるか認証
-  before_action :is_user_permitted, except:[:index,:show,:cheer]
+  before_action :is_user_permitted, except:[:index,:show,:cheer,:search]
   # GET /users
   # GET /users.json
   def index
     @users = User.all
   end
+
+  def search
+    # gem ransack利用
+    @search = User.search(params[:q])
+    @users = @search.result
+  end
+
+# 今のところ置物
+  # def ajax_action
+  #   @users = User.where('university= ? ', params[:university])
+  #   if @users.size > 0
+  #     render json: @users[0].university
+  #   else
+  #     render json: "No data"
+  #   end
+  # end
+
+
 
   # GET /users/1
   # GET /users/1.json
@@ -30,6 +48,7 @@ class UsersController < ApplicationController
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
+        flash.now[:danger]="必須事項を入力してください"
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

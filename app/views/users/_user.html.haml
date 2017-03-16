@@ -1,0 +1,21 @@
+.article
+  .panel.panel-info
+    .panel-body
+      .header-pic
+        = link_to(user) do
+          %img.header-pic-img{:src => img_path(user)}
+        .header-pic-textarea
+          %p
+            =user.nickname
+            %span=user.age.presence || "学年不明"
+          .arrow_box=user.comment || "よろしくお願いします"
+      .user-status
+        %table.table.table-striped.table-bordered
+          %tbody
+            %tr
+              %td.text-center
+                %i.fa.fa-eye
+                5viewsダミー
+              %td.text-center
+                %i.fa.fa-bullhorn
+                =Cheer.where(recipient_id:user.id).count.to_s+"人が応援"

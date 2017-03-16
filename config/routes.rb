@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :posts
   resources :users
   get 'cheers/:id',to: "users#cheer",as: "cheer"
+  get 'search',to:"users#search",as:"search"
 end

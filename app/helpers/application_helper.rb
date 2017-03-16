@@ -20,7 +20,4 @@ module ApplicationHelper
       %button.btn#{opt[1]}=link_to key,path,class:"active"
   HAML
 end
-  def age_arr
-    return ["中学1年生"],["中学2年生"],["中学3年生"],["高校1年生"],["高校2年生"],["高校3年生"], ["浪人生"],["大学1年生"],["大学2年生"],["大学3年生"],["大学4年生"],["その他"]
-  end
 end

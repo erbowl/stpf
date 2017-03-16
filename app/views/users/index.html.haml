@@ -1,21 +1,2 @@
 #content
-  - @users.each do |user|
-    .article
-      .panel.panel-info
-        .panel-body
-          .header-pic
-            = link_to(user) do
-              %img.header-pic-img{:src => img_path(user)}
-            .header-pic-textarea
-              %p=user.nickname+"ダミーこう1"
-              .arrow_box ダミーひとこと　
-          .user-status
-            %table.table.table-striped.table-bordered
-              %tbody
-                %tr
-                  %td.text-center
-                    %i.fa.fa-eye
-                    5viewsダミー
-                  %td.text-center
-                    %i.fa.fa-bullhorn
-                    0人が応援ダミー
+  =render @users

@@ -1,8 +1,10 @@
+-# =javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"
+-# =stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.css"
 = bootstrap_form_for(@user) do |f|
   .panel.panel-info
     .panel-body
       #result.header-pic{:onclick => "$('#form').click();"}
-        %img.j-img.header-pic-img{:alt => @user.nickname,:src => img_path(@user)}
+        %img.j-img.header-pic-img#crop{:alt => @user.nickname,:src => img_path(@user)}
         .header-pic-edit
           %i.fa.fa-camera{"aria-hidden" => "true"}
           画像を変更する
@@ -22,8 +24,6 @@
           %button{"data-target" => "#myModal", "data-toggle" => "modal", :style => "margin-bottom:10px;margin-left:15px;", :type => "button"}
             %i.fa.fa-info-circle>
             studyplusのURLの取得方法
-          %input.form-control{:name => "studyplus", :placeholder => "http://studyplus.jp/users/....", :type => "text", :value => ""}/
-          / モーダルウィンドウの中身
           #myModal.modal.fade
             .modal-dialog
               .modal-content
@@ -45,7 +45,6 @@
                     %img.header-pic-img{:alt => "", :border => "0", :src => "./img/slide3.jpg", :width => "80%"}/
                 .modal-footer
                   %button.btn.btn-lg.btn-block.btn-primary{"data-dismiss" => "modal", :type => "button"} 閉じる
-          / /モーダルウィンドウの中身
         %h4.panel-heading.panel-title.open
           %i.fa-minus-circle.fa
           基本プロフィール（必須）
@@ -54,13 +53,18 @@
           =f.select :age, age_arr,:prompt => "選択してください",label:"現在の学年"
           .form-group
             =f.label '性別'
-            =f.radio_button :gender,'男',label:'男'
-            =f.radio_button :gender,'女',label:'女'
-          =f.text_field :university,label:"志望・所属大学"
-          =f.text_field :department,label:"志望・所属学部"
+            =f.radio_button :gender,'male',label:'男'
+            =f.radio_button :gender,'female',label:'女'
+          =f.text_field :university,label:"志望・所属大学",list:"univ"
+          %datalist#univ
+            - univ_arr.each do |univ|
+              %option{value:univ}
+          =f.text_field :department,label:"志望・所属学部",list:"depa"
+          %datalist#depa
+            - depa_arr.each do |depa|
+              %option{value:depa}
           =f.text_field :like_subject,label:"得意科目"
           =f.text_field :dislike_subject,label:"苦手科目"
           =f.text_field :comment,label:"一言コメント"
-          =f.text_field :comment,label:"一言コメント"
-  = f.file_field :image,id:"form",hidden:true
+  = f.file_field :image,id:"form",class:"none"
   = f.submit '更新'

@@ -1,12 +1,3 @@
 %h2 勉強垢図鑑を始めよう
 = bootstrap_form_for(@user_1) do |f|
-  = f.text_field :nickname, autofocus: true,label:"ニックネーム"
-  = f.email_field :email, autofocus: true
-  = f.password_field :password, autocomplete: "off"
-  - if @minimum_password_length
-    (英数字#{@minimum_password_length}文字以上入力してください)
-  = f.password_field :password_confirmation, autocomplete: "off",label:"確認のためもう一度入力してください"
-  - if session["devise.twitter_data"].present?
-    = f.hidden_field :uid,value:session["devise.twitter_data"].uid
-    = f.hidden_field :provider,value:session["devise.twitter_data"].provider
-  = f.submit "始める"
+  =render 'layouts/user_new',f:f

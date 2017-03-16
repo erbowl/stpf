@@ -7,7 +7,7 @@
       .row
         .col-sm-6.col-sm-offset-3.col-md-6.col-md-offset-3
           =render 'layouts/flash'
-          =top_button({"トップ"=>root_path,"ランキング"=>root_path,"検索"=>root_path},".btn-warning.btn-lg.header-nav-text")
+          =top_button({"トップ"=>root_path,"ランキング"=>root_path,"検索"=>search_path},".btn-warning.btn-lg.header-nav-text")
           =top_button({"新着"=>root_path,"アクセス数"=>root_path,"応援されてる数"=>root_path},".btn-info")
           = yield
         =render 'layouts/footer'

@@ -18,6 +18,21 @@
 //= require_tree .
 //= require ckeditor/init
 
+// var image = document.getElementById('crop');
+// var cropper = new Cropper(image, {
+//   aspectRatio: 1 / 1,
+//   crop: function(e) {
+//     console.log(e.detail.x);
+//     console.log(e.detail.y);
+//     console.log(e.detail.width);
+//     console.log(e.detail.height);
+//     console.log(e.detail.rotate);
+//     console.log(e.detail.scaleX);
+//     console.log(e.detail.scaleY);
+//   }
+// });
+
+
 // プラマイで開閉するやつ
 $(document).ready(function(){
   $('#navi > .open').next().show();
@@ -59,6 +74,12 @@ $(document).on('ready page:load', function(event) {
     });
 
 
+$("#result").click(function(){
+  $('#form').click();
+};
+
+
+
       setFileImg = $('.j-img');
       prevElm = $("form").find(setFileImg),
       orgPass = prevElm.attr('src');
@@ -81,6 +102,4 @@ $(document).on('ready page:load', function(event) {
               }
           }
   });
-
-
 });

@@ -1,0 +1,19 @@
+= f.text_field :nickname, autofocus: true,label:"ニックネーム"
+= f.email_field :email, autofocus: true
+= f.password_field :password, autocomplete: "off"
+- if @minimum_password_length
+  (英数字#{@minimum_password_length}文字以上入力してください)
+= f.password_field :password_confirmation, autocomplete: "off",label:"確認のためもう一度入力してください"
+- if session["devise.twitter_data"].present?
+  = f.hidden_field :uid,value:session["devise.twitter_data"].uid
+  = f.hidden_field :provider,value:session["devise.twitter_data"].provider
+
+%p{:style => "font-size:0.8em;"}
+  %a{:href => "./policy"}> 利用規約
+  と
+  %a{:href => "./privacy_policy"}> プライバシーポリシー
+  に同意して
+= f.submit "始める"
+
+%p
+.btn.btn-info=link_to "ログインはこちらから",new_user_session_path
