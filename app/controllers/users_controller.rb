@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 
   def show
     @posts=@user.posts.order("id desc")
+    impressionist(@user, nil, :unique => [:session_hash])
     @cheers=Cheer.where(recipient_id:@user.id)
     @user_1=User.new unless user_signed_in?
   end

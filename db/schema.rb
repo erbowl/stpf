@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306114424) do
+ActiveRecord::Schema.define(version: 20170317085003) do
 
   create_table "cheers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -30,6 +30,31 @@ ActiveRecord::Schema.define(version: 20170306114424) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
+  end
+
+  create_table "impressions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "impressionable_type"
+    t.integer  "impressionable_id"
+    t.integer  "user_id"
+    t.string   "controller_name"
+    t.string   "action_name"
+    t.string   "view_name"
+    t.string   "request_hash"
+    t.string   "ip_address"
+    t.string   "session_hash"
+    t.text     "message",             limit: 65535
+    t.text     "referrer",            limit: 65535
+    t.text     "params",              limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index", using: :btree
+    t.index ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index", using: :btree
+    t.index ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index", using: :btree
+    t.index ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index", using: :btree
+    t.index ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index", using: :btree
+    t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index", using: :btree
+    t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", length: { message: 255 }, using: :btree
+    t.index ["user_id"], name: "index_impressions_on_user_id", using: :btree
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

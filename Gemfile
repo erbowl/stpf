@@ -4,8 +4,9 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-
-# Haml htmlを簡単に書く by setty
+# アクセス数取得
+gem 'impressionist'
+# Haml htmlを簡単に書く
 gem 'haml-rails'
 # formを簡単に導入
 gem 'bootstrap_form'
@@ -15,7 +16,7 @@ gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'rmagick'# 今回のリサイズ処理に必要
 
-# twitterlogin用
+# twitterlogin用rake db:migrate
 gem 'omniauth-twitter'
 # 環境変数を入力するためのもの
 gem 'dotenv-rails', groups: [:development, :test]
@@ -76,6 +77,10 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # erbをhamlにする by setty
   gem 'erb2haml'
+  # エラー画面をわかりやすく整形してくれる
+  gem 'better_errors'
+  # better_errorsの画面上にirb/pry(PERL)を表示する
+  gem 'binding_of_caller'
 
 end
 
