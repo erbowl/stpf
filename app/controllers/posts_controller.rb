@@ -1,13 +1,17 @@
 class PostsController < ApplicationController
 
-  before_action :move_to_index, except: :index
-  before_action :set_post,only: [:edit, :update,:destroy]
+  before_action :move_to_index, except: [:index,:show]
+  before_action :set_post,only: [:edit, :update,:destroy,:show]
 
   def index
     @posts = Post.all.order('id DESC').page(params[:page]).per(5)
   end
 
   def edit
+  end
+
+  def show
+    @user=@post.user
   end
 
   def update

@@ -1,0 +1,7 @@
+.media
+  =link_to(post) do
+    .media-left
+      %img.media-object{:alt => "...", :src => eye_catch_src(post)}
+    .media-body
+      %h4.media-heading=post.title
+      =strip_tags(post.content).slice(0..20)

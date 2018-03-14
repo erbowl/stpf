@@ -1,0 +1,13 @@
+- if !user_signed_in? || @user!=current_user
+  = form_tag(cheer_path(@user),remote:true,method:"get") do |f|
+    - if user_signed_in? && current_user.cheers.where(recipient_id:@user.id).exists?
+      - is_valid = current_user.cheers.where(recipient_id:@user.id).last[:is_valid]
+    - else
+      - is_valid = false
+    - text= is_valid ? "応援しています": "応援する"
+    =hidden_field_tag :is_valid,!is_valid
+    - if user_signed_in?
+      - id="cheers"
+    %button.btn.btn-sm.btn-block.btn-default{:type=>"submit","data-target" => "#myModal", "data-toggle" => "modal",:id=>id}
+      %i.fa.fa-bullhorn
+      %span#cheer_text=text

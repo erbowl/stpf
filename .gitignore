@@ -12,6 +12,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
+public/uploads/ckeditor/pictures
+public/uploads/user/*
 # Ignore Byebug command history file.
 .byebug_history
+# Ignore uploaded test images.

@@ -1,7 +1,2 @@
-%h1 勉強垢図鑑のみんな
-- @users.each do |user|
-  =link_to(user) do
-    .user
-    -user_img(user)
-    %p= user.nickname
-    %p= user.email
+#content
+  =render @users

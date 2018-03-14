@@ -1,0 +1,44 @@
+#navi.panel.panel-default
+  .panel-heading.h4
+    %h3.panel-title
+      %i.fa-plus-circle.fa
+      検索条件を入力
+  .panel-body
+    = search_form_for @search, url: search_path do |f|
+      .form-group
+        %label{:for => "nickname"} ニックネーム/アカウント名
+        =f.text_field :nickname_cont,class:"form-control",:placeholder=>"ニックネームまたはアカウント名の一部を入力"
+      .form-group
+        %label{:for => "age"} 現在の学年
+        =f.select :age_eq, options_for_select(age_arr),:prompt => "選択しない",class:"form-control"
+      .form-group
+        %label{:for => "gender"} 性別
+        .radio
+          %label.radio-inline
+            =f.radio_button :gender_eq,"male"
+            男
+          %label.radio-inline
+            =f.radio_button :gender_eq,"female"
+            女
+          %label.radio-inline
+            =f.radio_button :gender_eq,"male"
+            選択しない（使えません）
+      .form-group
+        = f.label :university_eq, '志望・所属大学'
+        = f.text_field :university_eq,list:"univ",class:"form-control"
+        %datalist#univ
+          - univ_arr.each do |univ|
+            %option{value:univ}
+      .form-group
+        = f.label :department_eq, '志望・所属学部'
+        =f.text_field :department_eq,list:"depa",class:"form-control"
+        %datalist#depa
+          - depa_arr.each do |depa|
+            %option{value:depa}
+      .form-group
+        = f.label :department_eq, 'フリーワード検索'
+        =f.text_field :like_subject_or_dislike_subject_or_comment_cont,class:"form-control"
+      %button.btn.btn-default.btn-lg.btn-block{:type => "submit"} 検索する
+
+#content
+  =render Array(@users)
