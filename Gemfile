@@ -6,6 +6,13 @@ git_source(:github) do |repo_name|
 end
 # アクセス数取得
 gem 'impressionist'
+
+gem 'redis'
+gem 'nokogiri'
+gem 'mini_magick'
+
+gem 'order_as_specified'
+
 # Haml htmlを簡単に書く
 gem 'haml-rails'
 # formを簡単に導入

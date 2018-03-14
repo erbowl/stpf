@@ -368,6 +368,11 @@ h4{
   margin-top: 0px;
 }
 
+.media-left img.media-object{
+  width: auto;
+  max-width:64px;
+  max-height:64px
+}
 
 
  /* Sticky footer styles
@@ -388,8 +393,6 @@ h4{
    height: 60px;
    background-color: #f5f5f5;
  }
-
-
  /* Custom page CSS
  -------------------------------------------------- */
  /* Not required for template or sticky footer method. */

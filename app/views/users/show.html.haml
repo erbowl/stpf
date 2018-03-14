@@ -15,7 +15,7 @@
           %tr
             %td.text-center
               %i.fa.fa-eye
-              5viewsダミー
+              #{@page_views}views
             %td.text-center
               %i.fa.fa-bullhorn
               %a{"data-target" => "#ouen_count", "data-toggle" => "modal", :href => "#"}
@@ -33,10 +33,10 @@
               %span#reco_count #{@cheers.count}
               人）
           .modal-body
-            %p まだ#{@user.nickname}さんを応援している勉強垢はいません。
-            %p
-              %a{:href => "https://twitter.com/intent/tweet?&text=さんは勉強垢図鑑にプロフィール【https%3A%2F%2Fstpf.jp%2F】を公開しました。%0a\n  &hashtags=%E5%8B%89%E5%BC%B7%E5%9E%A2%E5%9B%B3%E9%91%91%2C%E5%8B%89%E5%BC%B7%E5%9E%A2%E3%81%95%E3%82%93%E3%81%A8%E7%B9%8B%E3%81%8C%E3%82%8A%E3%81%9F%E3%81%84\n  &dnt=true"}> Twitterで自分のページをシェア
-              して応援してくれるユーザーを増やそう！
+            - @cheers.each do |cheer|
+              =render cheer.user
+            - if @cheers.count==0
+              %p まだ#{@user.nickname}さんを応援している勉強垢はいません。
           .modal-footer
     - unless user_signed_in?
       #myModal.modal.fade{"aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
@@ -50,34 +50,9 @@
               =render 'new'
     %h4 Ranking
     .ranking_area.row
-      .ranking_area_left.col-xs-4
-        .panel.panel-danger
-          .panel-heading.text-center
-            アクセス数
-            %br>/
-            （累計）
-          .panel-body.text-center
-            ダミ位
-            %span.ranking-bottom /だみ人
-      .ranking_area_middle.col-xs-4
-        .panel.panel-danger
-          .panel-heading.text-center
-            アクセス数
-            %br>/
-            （昨日）
-          .panel-body.text-center
-            だ位
-            %span.ranking-bottom /み人
-      .ranking_area_right.col-xs-4
-        .panel.panel-danger
-          .panel-heading.text-center
-            応援数
-            %br>/
-            （累計）
-          .panel-body.text-center
-            ?位
-            %span.ranking-bottom /だみ人
-    / プロフィールのリンクエリア（Studyplus,Twitterなど）
+      = render partial: "ranking_area", locals: {name: "アクセス数",type:"累計",rank:@t_rank}
+      = render partial: "ranking_area", locals: {name: "アクセス数",type:"昨日",rank:@y_rank}
+      = render partial: "ranking_area", locals: {name: "応援数",type:"累計",rank:@c_rank}
     %h4 Follow me!
     .profile-links
       -if @user.twitter.presence
@@ -97,19 +72,6 @@
         =pro_row("得意科目","like_subject")
         =pro_row("苦手科目","dislike_subject")
         =pro_row("部活動","activity")
-
-        %tr
-          %th.col-xs-4.col-md-3.text-center 趣味・好きなもの
-          %td
-            %a.label.label-default{:href => "search?tags%5B%5D=KinKi Kids"} KinKi Kidsだ
-            %a.label.label-default{:href => "search?tags%5B%5D=ラブライブ"} ラブライブ
-        %tr
-          %th.col-xs-4.col-md-3.text-center 予備校・通信教育
-          %td
-            %a.label.label-default{:href => "search?tags%5B%5D=河合塾マナビス"} 河合塾マナビス
-        %tr
-          %th.col-xs-4.col-md-3.text-center 目標勉強時間
-          %td 週30時間以上
     / ----------- Q&A ------------
     %h4 Q&A
     .panel.panel-danger
@@ -121,7 +83,28 @@
       .panel-body
         A. きままにいきたい
     / ブログ
+    %h4 Blog
+    =render Array(@user.posts.where(is_draft:[false,nil]))
+    - if current_user==@user
+      %h3 下書き中のブログ
+      =render Array(@user.posts.where(is_draft:true))
+
+    %table.table.table-condensed
+      %tbody
+        %tr
+          %td{:width => "40%"}
+            %p 2016/06/26 09:14
+          %td{:width => "50%"}
+            %p
+              %a{:href => "./blog?id=2"} ブログ機能を追加しました
+        %tr
+          %td{:width => "40%"}
+            %p 2016/06/27 04:29
+          %td{:width => "50%"}
+            %p
+              %a{:href => "./blog?id=4"} ブログが編集できるようになりました
     :javascript
+
       function disp(num){
 
         // 「OK」時の処理開始 ＋ 確認ダイアログの表示

@@ -11,7 +11,21 @@ module UsersHelper
   def depa_arr
     return ["法学部","医学部"]
   end
-  
+
+  def page_view(user)
+    page_views = (REDIS.zscore("user/total",user.id)) || 0
+    page_views = page_views.round
+  end
+
+  def eye_catch_src(post)
+    img=Nokogiri::HTML.parse(post.content, nil, nil).xpath("//img")
+    if img.empty?
+      img="/noimage.png"
+    else
+      img=img.attr("src").value
+    end
+  end
+
   def pro_row(label,name)
     value=@user[name]
     render :partial => "profile_row",:locals => { :label=>label,:value=>value,:name=>name} unless value.nil?

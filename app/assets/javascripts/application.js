@@ -50,40 +50,34 @@ $(document).ready(function(){
     $(this).children('i').toggleClass('fa-minus-circle');
     $(this).children('i').toggleClass('fa-plus-circle');
   });
-
 });
 
 $(document).on('ready page:load', function(event) {
-    // alert("そもそも");
-    $('#cheers').on('click', function() {
-      // alert("クリックは完治してるか？");
-      that=$("input#is_valid").val();
+  $('#cheers').on('click', function() {
+    that=$("input#is_valid").val();
       if (that=="true") {
-        // alert("応援していますに変える");
         $("#cheer_text").text("応援しています");
+        $("#reco_count").text(Number($("#reco_count").text())+1);
         setTimeout(function(){
-       $("input#is_valid").val("false");
+          $("input#is_valid").val("false");
         },1000);
       } else {
-        // alert("応援するに変える");
         $("#cheer_text").text("応援する");
+        $("#reco_count").text(Number($("#reco_count").text())-1);
         setTimeout(function(){
-       $("input#is_valid").val("true");
+          $("input#is_valid").val("true");
         },1000);
       }
     });
+});
 
 
 $("#result").click(function(){
   $('#form').click();
-};
-
-
-
-      setFileImg = $('.j-img');
-      prevElm = $("form").find(setFileImg),
-      orgPass = prevElm.attr('src');
-      $("#form").change(function(){
+  setFileImg = $('.j-img');
+  prevElm = $("form").find(setFileImg),
+  orgPass = prevElm.attr('src');
+  $("#form").change(function(){
           var file = $(this).prop('files')[0],
           fileRdr = new FileReader();
 
@@ -101,5 +95,5 @@ $("#result").click(function(){
                   fileRdr.readAsDataURL(file);
               }
           }
-  });
+        });
 });

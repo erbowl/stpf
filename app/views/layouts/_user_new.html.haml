@@ -5,8 +5,8 @@
   (英数字#{@minimum_password_length}文字以上入力してください)
 = f.password_field :password_confirmation, autocomplete: "off",label:"確認のためもう一度入力してください"
 - if session["devise.twitter_data"].present?
-  = f.hidden_field :uid,value:session["devise.twitter_data"].uid
-  = f.hidden_field :provider,value:session["devise.twitter_data"].provider
+  = f.hidden_field :uid,value:session["devise.twitter_data"]["uid"]
+  = f.hidden_field :provider,value:session["devise.twitter_data"]["provider"]
 
 %p{:style => "font-size:0.8em;"}
   %a{:href => "./policy"}> 利用規約

@@ -5,34 +5,43 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if 1==1
+      @users = User.all
+    else
+      # アクセスランキング
+      ids=REDIS.zrevrangebyscore "user/total", "+inf", 0, limit: [0, 20]
+      @users=[]
+      ids.each do |id|
+        @users.push(User.find(id))
+      end
+    end
+
   end
 
   def search
     # gem ransack利用
     @search = User.search(params[:q])
     @users = @search.result
+    flash.now[:success]="ユーザーが見つかりました(仮置き) "
   end
-
-# 今のところ置物
-  # def ajax_action
-  #   @users = User.where('university= ? ', params[:university])
-  #   if @users.size > 0
-  #     render json: @users[0].university
-  #   else
-  #     render json: "No data"
-  #   end
-  # end
-
-
-
-  # GET /users/1
-  # GET /users/1.json
 
   def show
     @posts=@user.posts.order("id desc")
-    impressionist(@user, nil, :unique => [:session_hash])
-    @cheers=Cheer.where(recipient_id:@user.id)
+    # お役御免
+    # impressionist(@user, nil, :unique => [:session_hash]) unless @user==current_user
+    if true
+      # if params[:session][:user_imp][@user.id].nil? セッションが見当たらない。
+      REDIS.zincrby "user/total", 1, @user.id unless @user==current_user
+      REDIS.zincrby "user/daily/#{Date.today.to_s}", 1, @user.id
+    end
+    @y_rank=get_rank("user/daily/#{Date.yesterday.to_s}")
+    @t_rank=get_rank("user/total")
+    @c_rank=get_rank("cheer")
+
+    @page_views = (REDIS.zscore("user/total",@user.id)) || 0
+    @page_views = @page_views.round
+
+    @cheers=Cheer.where(recipient_id:@user.id,is_valid:true).select(:user_id)
     @user_1=User.new unless user_signed_in?
   end
 
@@ -67,8 +76,14 @@ class UsersController < ApplicationController
 
   def cheer
     # 応援しているかを新規作成
-    cheer=current_user.cheers.build(recipient_id:params[:id],is_valid:params[:is_valid])
-    # 保存する
+    cheer=current_user.cheers.find_or_initialize_by(recipient_id:params[:id])
+    cheer.is_valid=params[:is_valid]
+    # ランキング作成用
+    if params[:is_valid]
+      REDIS.zincrby "cheer", 1, @user.id
+    else
+      REDIS.zincrby "cheer", -1, @user.id
+    end
     cheer.save
     head 200
   end
@@ -90,5 +105,11 @@ class UsersController < ApplicationController
       # 非ログインユーザー、またはログインした別ユーザーの場合トップにリダイレク
         redirect_to root_path
       end
+    end
+
+    def get_rank(redis)
+      rank=(REDIS.zrank redis, @user.id) || User.count
+      rank=rank+1 unless rank==User.count
+      rank
     end
 end

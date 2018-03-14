@@ -1,0 +1,15 @@
+.panel-body
+  .blog-post.row
+    .col-xs-12
+      %small=@post.created_at
+      =link_to "編集",edit_post_path(@post) if @user==current_user
+      %h2=@post.title
+      =@post.content.html_safe
+  %hr/
+  =link_to(@user) do
+    .prof_area.row
+      .col-xs-4.prof_img_area
+        %img.header-pic-img.img-circle{:alt => @user.nickname, :src => img_path(@user)}
+      .col-xs-8
+        %p.prof_username #{@user.nickname} #{@user.age}
+        %p.prof_text #{@post.user.comment}

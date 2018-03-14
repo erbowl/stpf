@@ -15,7 +15,7 @@
             %tr
               %td.text-center
                 %i.fa.fa-eye
-                5viewsダミー
+                #{page_view(user)}views
               %td.text-center
                 %i.fa.fa-bullhorn
                 =Cheer.where(recipient_id:user.id).count.to_s+"人が応援"
